@@ -7,12 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.x.x'
     - uses: actions/setup-node@v1
       with:
         node-version: '12.x.x'
     - uses: actions/checkout@v2
-      with:
-        dotnet-version: '5.x.x'
     - name: Install dependencies dotnet
       run: dotnet restore
     - name: Build dotnet
@@ -20,6 +20,6 @@ jobs:
     - name: Test dotnet
       run: dotnet test --no-restore --verbosity normal
     - name: NPM install
-      run: cd DotnetTemplate.Web && npm i
+      run: cd DotnetTemplate.Web && npm install
     - name: NPM build
-      run: cd DotnetTemplate.Web && npm build
+      run: cd DotnetTemplate.Web && npm run build
