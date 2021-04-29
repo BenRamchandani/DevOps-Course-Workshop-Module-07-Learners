@@ -27,6 +27,6 @@ jobs:
         key: node-modules-${{ hashFiles('package-lock.json') }}
     - name: NPM install
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm install
+      run: cd DotnetTemplate.Web && npm install
     - name: NPM build
       run: cd DotnetTemplate.Web && npm run build
