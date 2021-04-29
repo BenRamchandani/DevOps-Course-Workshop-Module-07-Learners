@@ -19,7 +19,14 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test dotnet
       run: dotnet test --no-restore --verbosity normal
+    - name: Cache Node Modules
+      id: cache-node-modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
     - name: NPM install
-      run: cd DotnetTemplate.Web && npm install
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm install
     - name: NPM build
       run: cd DotnetTemplate.Web && npm run build
