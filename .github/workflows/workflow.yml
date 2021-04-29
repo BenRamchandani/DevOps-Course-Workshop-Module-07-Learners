@@ -24,7 +24,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: node_modules
-        key: node-modules-${{ hashFiles('package-lock.json') }}
+        key: node-modules-${{ hashFiles('DotnetTemplate.Web/package-lock.json') }}
     - name: NPM install
       if: steps.cache.outputs.cache-hit != 'true'
       run: cd DotnetTemplate.Web && npm install
