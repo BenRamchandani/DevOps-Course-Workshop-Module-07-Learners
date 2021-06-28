@@ -35,17 +35,10 @@ pipeline {
                     steps {
                         dir ("DotnetTemplate.Web/") {
                             sh "npm run test-with-coverage"
-                        }
-                    }
-                    post {
-                        always {
-                            publishCoverage failUnhealthy: true,
-                                globalThresholds: [[unhealthyThreshold: 80.0]],
-                                adapters: [coberturaAdapter('DotnetTemplate.Web/coverage/cobertura-coverage.xml')]
+                            publishCoverage adapters: [istanbulCoberturaAdapter(path: 'coverage/cobertura-coverage.xml', thresholds: [[failUnhealthy: true, thresholdTarget: 'Line', unhealthyThreshold: 30.0, unstableThreshold: 50.0]])], sourceFileResolver: sourceFiles('STORE_LAST_BUILD')
                         }
                     }
                 }
-
             }
         }
         stage ('Dotnet') {
