@@ -39,7 +39,9 @@ pipeline {
                     }
                     post {
                         always {
-                            publishCoverage adapters: [coberturaAdapter('/DotnetTemplate.Web/coverage/cobertura-coverage.xml')]
+                            publishCoverage failUnhealthy: true,
+                                globalThresholds: [[unhealthyThreshold: 80.0]],
+                                adapters: [coberturaAdapter('/DotnetTemplate.Web/coverage/cobertura-coverage.xml')]
                         }
                     }
                 }
