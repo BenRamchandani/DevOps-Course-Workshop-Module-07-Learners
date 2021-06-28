@@ -37,6 +37,11 @@ pipeline {
                             sh "npm run test-with-coverage"
                         }
                     }
+                    post {
+                        always {
+                            publishCoverage adapters: [coberturaAdapter('/DotnetTemplate.Web/coverage/cobertura-coverage.xml')]
+                        }
+                    }
                 }
 
             }
